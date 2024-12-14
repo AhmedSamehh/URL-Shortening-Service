@@ -5,9 +5,11 @@ import com.example.urlshorten.repository.UrlRepository;
 import com.example.urlshorten.util.UrlValidationUtil;
 import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+@Service
 public class UrlService {
 
     private static final String BASE_SHORT_URL = "https://short.ly/";
