@@ -76,4 +76,12 @@ public class UrlService {
 
         urlRepository.delete(url);
     }
+
+    public Url updateOriginalUrl(String shortUrl, String updatedOriginalUrl) {
+        Url url = urlRepository.findByShortUrl(shortUrl)
+                .orElseThrow(() -> new RuntimeException("Short URL not found"));
+
+        url.setOriginalUrl(updatedOriginalUrl);
+        return urlRepository.save(url);
+    }
 }

@@ -43,4 +43,10 @@ public class UrlController {
         urlService.deleteShortUrl(shortUrl);
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping("/{shortUrl}")
+    public ResponseEntity<Url> updateOriginalUrl(@PathVariable String shortUrl, @RequestBody Map<String, String> urlMap) {
+        Url updatedUrl = urlService.updateOriginalUrl(shortUrl, urlMap.get("originalUrl"));
+        return ResponseEntity.ok(updatedUrl);
+    }
 }
