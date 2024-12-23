@@ -69,4 +69,11 @@ public class UrlService {
 
         return stats;
     }
+
+    public void deleteShortUrl(String shortUrl) {
+        Url url = urlRepository.findByShortUrl(shortUrl)
+                .orElseThrow(() -> new RuntimeException("Short URL not found"));
+
+        urlRepository.delete(url);
+    }
 }

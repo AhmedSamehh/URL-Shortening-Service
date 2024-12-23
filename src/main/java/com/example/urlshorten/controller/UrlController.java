@@ -37,4 +37,10 @@ public class UrlController {
         Map<String, Object> stats = urlService.getUrlStats(shortUrl);
         return ResponseEntity.ok(stats);
     }
+
+    @DeleteMapping("/{shortUrl}")
+    public ResponseEntity<Void> deleteShortUrl(String shortUrl) {
+        urlService.deleteShortUrl(shortUrl);
+        return ResponseEntity.noContent().build();
+    }
 }
