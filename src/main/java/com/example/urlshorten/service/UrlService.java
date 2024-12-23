@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -53,5 +55,18 @@ public class UrlService {
         urlRepository.save(url);
 
         return url.getOriginalUrl();
+    }
+
+    public Map<String, Object> getUrlStats(String shortUrl) {
+        Url url = urlRepository.findByShortUrl(shortUrl)
+                .orElseThrow(() -> new RuntimeException("Short URL not found"));
+
+        Map<String, Object> stats = new HashMap<>();
+        stats.put("originalUrl", url.getOriginalUrl());
+        stats.put("shortUrl", url.getShortUrl());
+        stats.put("accessCount", url.getAccessCount());
+        stats.put("createdAt", url.getCreatedAt());
+
+        return stats;
     }
 }

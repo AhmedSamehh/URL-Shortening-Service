@@ -31,4 +31,10 @@ public class UrlController {
         String originalUrl = urlService.getOriginalUrl(shortUrl);
         return ResponseEntity.ok(originalUrl);
     }
+
+    @GetMapping("/{shortUrl}/stats")
+    public ResponseEntity<Map<String, Object>> getUrlStats(@PathVariable String shortUrl) {
+        Map<String, Object> stats = urlService.getUrlStats(shortUrl);
+        return ResponseEntity.ok(stats);
+    }
 }
