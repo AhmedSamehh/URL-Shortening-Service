@@ -16,7 +16,7 @@ public class Url {
     private Long id;
     @Column(name = "original_url")
     private String originalUrl;
-    @Column(name = "short_url")
+    @Column(name = "short_url", unique = true)
     private String shortUrl;
     @Column(name = "access_count")
     private int accessCount = 0;
