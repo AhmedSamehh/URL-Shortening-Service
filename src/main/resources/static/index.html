@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
+        input, button { margin: 10px; padding: 10px; font-size: 16px; }
+        #shortenedUrl { margin-top: 20px; font-weight: bold; color: blue; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<h2>URL Shortener</h2>
+<input type="text" id="originalUrl" placeholder="Enter URL here">
+<button onclick="shortenUrl()">Shorten</button>
+
+<div id="result"></div>
+
+<script>
+    const baseUrl = window.location.origin;
+
+    async function shortenUrl() {
+        const originalUrl = document.getElementById("originalUrl").value;
+        if (!originalUrl) {
+            alert("Please enter a valid URL!");
+            return;
+        }
+
+        const response = await fetch("/api/url/shorten", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ originalUrl })
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            document.getElementById("result").innerHTML = `
+                <p>Short URL: <a href="${data.shortUrl}" target="_blank">${data.shortUrl}</a></p>
+                <button onclick="copyToClipboard('${data.shortUrl}')">Copy</button>
+            `;
+        } else {
+            alert("Error shortening URL.");
+        }
+    }
+
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(() => alert("Copied to clipboard!"));
+    }
+</script>
+
+</body>
+</html>
