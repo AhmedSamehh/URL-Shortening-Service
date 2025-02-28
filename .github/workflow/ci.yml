@@ -1,4 +1,4 @@
-name: CI Pipeline
+name: URL Shortener CI Pipeline
 
 on:
   push:
